@@ -78,3 +78,10 @@ Base27 maps `A–Z + SPACE` to values `0..26` and three ternary digits (`000..22
 The `tools/cvnss4_converter_audit_safe.js` file was supplied by the project owner as a reference, version `5.0.0-audit-safe`, with its internal self-test (23/23). Generated C tables and test fixtures derive from it. Keep upstream CVNSS4.0 authorship and converter attribution distinct from the Bila-ed implementation maintained by Long Ngo. Check copyright and licensing of any third-party CVNSS4.0 data before redistribution.
 
 See [`docs/SPEC.md`](docs/SPEC.md) for the exact invariants and limitations.
+
+
+## Project website / Trang giới thiệu
+
+**Bila-ed · CVED / GitHub Pages:** https://xulytiengviet.github.io/Bila-ed/
+
+The Vietnamese website (source in [docs/](docs/)) presents the history of Unix ed and CVNSS4.0, software features, CMD/Linux instructions, and a browser-side interactive reference-converter demo. The web demo runs JavaScript, **not** the C executable. For publishing details see [docs/README.md](docs/README.md).
