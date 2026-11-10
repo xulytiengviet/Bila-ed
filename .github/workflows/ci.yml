@@ -16,6 +16,11 @@ jobs:
       - name: Build native Windows EXE with MinGW-w64
         shell: cmd
         run: build-windows.cmd
+      - name: Windows CMD smoke and parity tests
+        shell: cmd
+        run: |
+          dist\cved.exe --version
+          python tests\test_suite.py dist\cved.exe
       - uses: actions/upload-artifact@v4
         with:
           name: Bila-ed-Windows-CMD
