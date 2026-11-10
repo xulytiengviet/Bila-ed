@@ -1,0 +1,15 @@
+{
+  "version": "5.0.0-audit-safe",
+  "sourceVersion": "4.1.0-pro",
+  "baseRows": 758,
+  "patch54Entries": 324,
+  "patch56Entries": 12,
+  "totalPatchEntries": 336,
+  "ambiguityGroups": 56,
+  "explicitCanonicalPolicies": 56,
+  "criticalCollisionGroups": 5,
+  "maxCandidateCount": 2,
+  "dataCorrections": 3,
+  "legacyForwardAliases": 1,
+  "silentReverseOverwrite": 0
+}

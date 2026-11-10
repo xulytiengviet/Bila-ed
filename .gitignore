@@ -1,0 +1,9 @@
+*.o
+cved
+*.exe
+*.obj
+*.txt.cvedtmp.*
+dist/
+__pycache__/
+*.pyc
+*.out
