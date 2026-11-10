@@ -6,6 +6,8 @@
 #include <errno.h>
 #ifdef _WIN32
 #include <io.h>
+#include <windows.h>
+#include <wchar.h>
 #define ISATTY _isatty
 #define FILENO _fileno
 #else
@@ -18,7 +20,7 @@ static void usage(void){
  "Usage: cved [FILE] | --decode RAW | --encode UTF8 | --base27 TEXT | --unbase27 TRITS | --version\n"
  "Editor is ASCII-only on stdout; UTF-8 is emitted only to files or explicitly via --decode.");
 }
-int main(int argc,char **argv){
+static int cved_main(int argc,char **argv){
  if(argc>1 && (!strcmp(argv[1],"--help")||!strcmp(argv[1],"-h"))){usage();return 0;}
  if(argc>1&&!strcmp(argv[1],"--version")){puts("Bila-ed 0.1.0 (CVNSS4.0 audit-safe tables v5.0.0)");return 0;}
  if(argc>2){char *out=NULL;int code=0;
@@ -40,3 +42,26 @@ int main(int argc,char **argv){
  int status=cmd_run(&b,stdin,stdout,stderr,ISATTY(FILENO(stdin))!=0);
  buf_free(&b);return status;
 }
+
+#ifdef _WIN32
+/* MinGW-w64: build with -municode. Preserve Unicode CLI arguments as UTF-8
+   rather than relying on the active Windows OEM/ANSI code page. */
+int wmain(int argc,wchar_t **wargv){
+ char **argv=calloc((size_t)argc+1,sizeof(*argv));
+ if(!argv)return 2;
+ int rc=2;
+ for(int i=0;i<argc;i++){
+  int count=WideCharToMultiByte(CP_UTF8,WC_ERR_INVALID_CHARS,wargv[i],-1,NULL,0,NULL,NULL);
+  if(count<=0)goto done;
+  argv[i]=malloc((size_t)count);
+  if(!argv[i])goto done;
+  if(!WideCharToMultiByte(CP_UTF8,WC_ERR_INVALID_CHARS,wargv[i],-1,argv[i],count,NULL,NULL))goto done;
+ }
+ rc=cved_main(argc,argv);
+done:
+ for(int i=0;i<argc;i++)free(argv[i]);
+ free(argv);return rc;
+}
+#else
+int main(int argc,char **argv){return cved_main(argc,argv);}
+#endif
