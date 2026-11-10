@@ -8,7 +8,7 @@ if errorlevel 1 (
   exit /b 1
 )
 if not exist dist mkdir dist
-gcc -O2 -std=c11 -Wall -Wextra -Wpedantic -Iinclude src\main.c src\buffer.c src\cmd.c src\fileio.c src\utf8.c src\cvnss_parse.c src\cvnss_decode.c src\cvnss_encode.c -o dist\cved.exe
+gcc -municode -O2 -std=c11 -Wall -Wextra -Wpedantic -Iinclude src\main.c src\buffer.c src\cmd.c src\fileio.c src\utf8.c src\cvnss_parse.c src\cvnss_decode.c src\cvnss_encode.c -o dist\cved.exe
 if errorlevel 1 exit /b 1
 echo Built dist\cved.exe
 "dist\cved.exe" --version
