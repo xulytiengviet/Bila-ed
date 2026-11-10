@@ -59,7 +59,7 @@ class BilaTests(unittest.TestCase):
    path=pathlib.Path(d)/'big.txt';n=900
    p=invoke(path,stdin='a\n'+('toiy iwy\n'*n)+'.\nwq\n')
    self.assertEqual(p.returncode,0,p.stderr)
-   self.assertEqual(path.read_text().count('tôi yêu'),n)
+   self.assertEqual(path.read_text(encoding="utf-8").count('tôi yêu'),n)
  def test_007_base27_roundtrip(self):
   p=invoke('--base27','ABC XYZ')
   self.assertEqual(p.returncode,0)
