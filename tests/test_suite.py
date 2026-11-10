@@ -8,7 +8,7 @@ UNIT=("test_buffer","test_roundtrip","test_commands","test_utf8")
 C_SOURCES=[str(p) for p in (ROOT/'src').glob('*.c') if p.name!='main.c']
 
 def invoke(*args, stdin=None, cwd=None):
- return subprocess.run([str(EXE),*map(str,args)],input=stdin,text=True,capture_output=True,cwd=cwd,timeout=15)
+ return subprocess.run([str(EXE),*map(str,args)],input=stdin,text=True,encoding="utf-8",errors="replace",capture_output=True,cwd=cwd,timeout=15)
 
 class BilaTests(unittest.TestCase):
  def test_001_unit_C(self):
