@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090e12">
+  <meta name="description" content="Bila-ed / CVED — trình soạn thảo tiếng Việt theo dòng lấy cảm hứng từ Unix ed. Nhập CVNSS4.0 bằng ASCII, lưu Unicode UTF-8. Mã nguồn mở C11 do Long Ngo phát triển.">
+  <meta name="author" content="Long Ngo">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Bila-ed / CVED">
+  <meta property="og:title" content="Bila-ed / CVED — ASCII là giao diện, Unicode là dữ liệu">
+  <meta property="og:description" content="Từ ed của Unix đến CVNSS4.0: trình biên tập theo dòng bằng C11, demo chuyển đổi và hướng dẫn sử dụng.">
+  <meta property="og:url" content="https://xulytiengviet.github.io/Bila-ed/">
+  <link rel="canonical" href="https://xulytiengviet.github.io/Bila-ed/">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./cvnss4_converter_audit_safe.js" defer></script>
+  <script src="./app.js" defer></script>
+  <title>Bila-ed / CVED · Vietnamese ASCII Line Editor</title>
+</head>
+<body>
+<a class="skip-link" href="#main">Đi tới nội dung</a>
+<div class="scanline" aria-hidden="true"></div>
+<header class="site-header" id="top">
+  <div class="shell header-inner">
+    <a href="#top" class="brand" aria-label="Bila-ed — về đầu trang"><span class="brand-prompt">&gt;_</span><span>BILA<span class="brand-mark">/</span>ED</span><span class="version">v0.1.0</span></a>
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+    <nav class="nav" id="site-nav" aria-label="Điều hướng chính">
+      <a href="#gioi-thieu">Giới thiệu</a>
+      <a href="#lich-su">Lịch sử</a>
+      <a href="#dac-diem">Đặc điểm</a>
+      <a href="#demo">Demo</a>
+      <a href="#huong-dan">Cách dùng</a>
+      <a href="#ung-dung">Ứng dụng</a>
+      <a class="nav-github" href="https://github.com/xulytiengviet/Bila-ed" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero shell" id="gioi-thieu" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <div class="eyebrow"><span class="signal"></span> OPEN SOURCE / C11 / TERMINAL-FIRST</div>
+    <p class="pretitle">Trình soạn thảo tiếng Việt theo dòng</p>
+    <h1 id="hero-title"><span>ASCII là</span><br><em>giao diện.</em><br><span>Unicode là</span><br><em class="mint">dữ liệu.</em><span class="cursor" aria-hidden="true">_</span></h1>
+    <p class="hero-description">Bila-ed / CVED lấy cảm hứng từ <strong>Unix ed</strong>, sử dụng <strong>CVNSS4.0</strong> làm cách nhập văn bản: bạn nhìn thấy chuỗi ASCII trên terminal, còn tệp được lưu bằng tiếng Việt <strong>UTF-8</strong>.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#demo"><span aria-hidden="true">▶</span> Thử chuyển mã</a>
+      <a class="btn btn-outline" href="#huong-dan">Xem cách dùng <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="microcopy"><span>by Long Ngo</span><span class="bullet">·</span><span>MIT License</span><span class="bullet">·</span><span>Phát triển 2026</span></div>
+  </div>
+  <div class="hero-console" aria-label="Minh họa terminal Bila-ed">
+    <div class="window-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span>CMD / cved.exe demo.txt</span><span class="mono">● LOCAL</span></div>
+    <div class="console-content" aria-label="Dòng lệnh minh họa">
+      <div class="terminal-head"><span>Long Ngo / Bila-ed</span><span class="term-green">[ READY ]</span></div>
+      <div class="term-line dim">C:\&gt; cved.exe demo.txt</div>
+      <div class="term-line"><span class="term-yellow">&gt;</span> a</div>
+      <div class="term-line"><span class="term-green">[input]</span> toiy iwy</div>
+      <div class="term-line"><span class="term-green">[input]</span> tizb vidf</div>
+      <div class="term-line"><span class="term-green">[input]</span> .</div>
+      <div class="term-line"><span class="term-yellow">&gt;</span> ,p</div>
+      <div class="term-line"><span class="term-gray">1</span> toiy iwy</div>
+      <div class="term-line"><span class="term-gray">2</span> tizb vidf</div>
+      <div class="term-line"><span class="term-yellow">&gt;</span> w</div>
+      <div class="term-line term-green">demo.txt: written (UTF-8)</div>
+      <div class="term-divider"></div>
+      <div class="term-filehead"><span>FILE OUTPUT</span><span class="term-green">demo.txt / UTF-8</span></div>
+      <div class="term-unicode">tôi yêu<br>tiếng việt</div>
+    </div>
+    <div class="console-foot"><span>RAW ASCII → CVNSS4.0 → UTF-8</span><span class="term-green">■ SAFE WRITE</span></div>
+  </div>
+</section>
+
+<div class="metric-band"><div class="shell metric-inner">
+  <div><strong>1969</strong><span>Gốc cảm hứng Unix ed</span></div>
+  <div><strong>2020</strong><span>CVNSS4.0 công bố</span></div>
+  <div><strong>825</strong><span>Ca golden đối chiếu</span></div>
+  <div><strong>C11</strong><span>Lõi biên tập mã nguồn mở</span></div>
+</div></div>
+
+<section class="section shell" id="lich-su">
+  <div class="section-intro">
+    <div class="kicker">01 / ORIGIN STORY</div>
+    <h2>Từ một dòng lệnh Unix<br>đến tiếng Việt thế hệ mới.</h2>
+    <p>Hai dòng lịch sử gặp nhau: triết lý tối giản của <code>ed</code> và hành trình nghiên cứu chữ Việt không dấu có quy tắc.</p>
+  </div>
+  <div class="history-grid">
+    <div class="history-rail">
+      <div class="rail-label">LỊCH SỬ TRÌNH SOẠN THẢO</div>
+      <article class="history-event">
+        <div class="history-year">1960s</div><div><h3>QED — tiền thân</h3><p>Trình soạn thảo QED mở đường cho thao tác văn bản theo dòng; Ken Thompson tiếp thu các ý tưởng này khi phát triển công cụ cho Unix.</p><a href="https://www.nokia.com/bell-labs/about/dennis-m-ritchie/qed.html" target="_blank" rel="noopener noreferrer">Ghi chép của Dennis Ritchie ↗</a></div>
+      </article>
+      <article class="history-event">
+        <div class="history-year">1969</div><div><h3>Unix <code>ed</code> ra đời</h3><p><code>ed</code> xuất hiện từ thời Unix sơ khai trên PDP-7, cho phép chèn, xóa, thay thế và ghi tệp bằng các lệnh ngắn; về sau ảnh hưởng đến <code>ex</code> và <code>vi</code>.</p><a href="https://www.gnu.org/software/ed/manual/ed_manual.html" target="_blank" rel="noopener noreferrer">Tài liệu GNU ed ↗</a></div>
+      </article>
+      <article class="history-event">
+        <div class="history-year">1970s+</div><div><h3>Tư duy nhỏ, bền, ghép nối được</h3><p>Trình soạn thảo không cần giao diện toàn màn hình: con người ra lệnh, buffer xử lý theo dòng, tệp chỉ đổi khi lưu. Bila-ed kế thừa tinh thần đó, không tuyên bố tương thích hoàn toàn POSIX ed.</p></div>
+      </article>
+    </div>
+    <div class="history-rail">
+      <div class="rail-label">LỊCH SỬ CVNSS4.0</div>
+      <article class="history-event">
+        <div class="history-year">1977</div><div><h3>Chữ Việt Nhanh (CVN)</h3><p>Trần Tư Bình bắt đầu nghiên cứu các quy tắc rút gọn chữ Quốc ngữ, vẫn giữ dấu thanh và dấu phụ ở dạng CVN.</p></div>
+      </article>
+      <article class="history-event">
+        <div class="history-year">2010</div><div><h3>Ký Hiệu Dấu (KHD)</h3><p>Kiều Trường Lâm xây dựng cách dùng chữ cái biểu thị dấu, một thành phần quan trọng trong công thức CVNSS4.0.</p></div>
+      </article>
+      <article class="history-event">
+        <div class="history-year">2019–20</div><div><h3>Chữ VN Song Song 4.0</h3><p>Hai hệ quy tắc được kết hợp cuối năm 2019; CVNSS4.0 được đăng ký quyền tác giả số <strong>1850/2020/QTG</strong> ngày 25/03/2020. Công thức gồm 34 quy tắc CVN và 18 quy tắc KHD.</p><a href="https://chuvietnhanh.sourceforge.net/ChuVNSongSong.htm" target="_blank" rel="noopener noreferrer">Giáo trình của hai đồng tác giả ↗</a></div>
+      </article>
+      <article class="history-event">
+        <div class="history-year">2026</div><div><h3>Bila-ed / CVED</h3><p>Long Ngo xây dựng trình biên tập dòng bằng C11: bề mặt ASCII, bộ chuyển đổi CVNSS4.0 có thể kiểm thử và tệp UTF-8 được bảo toàn.</p></div>
+      </article>
+    </div>
+  </div>
+  <div class="history-note"><span class="note-icon">i</span><p>CVNSS4.0 là hệ chữ song song, <strong>không nhằm thay thế chữ Quốc ngữ</strong>. Bila-ed là dự án ứng dụng và nghiên cứu độc lập, không phải công cụ chính thức của hai đồng tác giả CVNSS4.0.</p></div>
+</section>
+
+<section class="section section-shaded" id="dac-diem">
+  <div class="shell">
+    <div class="section-intro">
+      <div class="kicker">02 / DESIGN PRINCIPLES</div>
+      <h2>Ba nguyên tắc.<br>Một đường đi dữ liệu.</h2>
+      <p>Giao diện nhập văn bản, bộ máy chuyển đổi và tệp đầu ra được tách riêng để dễ hiểu, dễ kiểm thử và giảm nguy cơ mất dữ liệu.</p>
+    </div>
+    <div class="principles">
+      <article class="principle"><span class="card-num">01</span><div class="line-icon">⌨</div><h3>ASCII là giao diện</h3><p>Màn hình <code>p</code> / <code>n</code> xuất raw ASCII. Không phụ thuộc bộ gõ tiếng Việt; phù hợp SSH, terminal đời cũ và serial console.</p><span class="pill">RAW / TEXT</span></article>
+      <article class="principle"><span class="card-num">02</span><div class="line-icon icon-green">▣</div><h3>Unicode được bảo toàn</h3><p>Ghi văn bản tiếng Việt thành UTF-8; giữ nguyên tệp chưa sửa, kể cả ký tự ngoài khả năng biểu diễn CVNSS4.0. Có cơ chế ghi tạm trước khi thay thế.</p><span class="pill">UTF-8 / SAFE I/O</span></article>
+      <article class="principle"><span class="card-num">03</span><div class="line-icon icon-amber">◇</div><h3>CVNSS4.0 có kiểm chứng</h3><p>Bảng luật tham chiếu bản audit-safe v5.0, xử lý mã mơ hồ bằng chính sách tường minh và kiểm tra chuyển mã ngược trước khi ghi nhận là chính xác.</p><span class="pill">ENGINE / TESTABLE</span></article>
+    </div>
+    <div class="pipeline" aria-label="Quy trình chuyển đổi">
+      <div><small>INPUT</small><strong>ASCII / CVNSS4.0</strong><span>toiy iwy</span></div>
+      <span class="pipe-arrow" aria-hidden="true">→</span>
+      <div><small>ENGINE</small><strong>CVN + KHD</strong><span>Giải mã có kiểm tra</span></div>
+      <span class="pipe-arrow" aria-hidden="true">→</span>
+      <div><small>OUTPUT</small><strong>UNICODE / UTF-8</strong><span>tôi yêu</span></div>
+    </div>
+    <div class="feature-list">
+      <div><span class="feature-symbol">✓</span> C11 và Makefile</div>
+      <div><span class="feature-symbol">✓</span> Lệnh kiểu ed theo dòng</div>
+      <div><span class="feature-symbol">✓</span> Kiểm tra UTF-8</div>
+      <div><span class="feature-symbol">✓</span> Base27 / 3 trít để nghiên cứu</div>
+      <div><span class="feature-symbol">✓</span> Golden tests đối chiếu JS</div>
+      <div><span class="feature-symbol">✓</span> CI Windows và Linux</div>
+    </div>
+  </div>
+</section>
+
+<section class="section shell" id="demo">
+  <div class="section-intro">
+    <div class="kicker">03 / INTERACTIVE LAB</div>
+    <h2>Gõ ASCII.<br>Xem tiếng Việt hiện ra.</h2>
+    <p>Phòng thử nghiệm ngay trên trình duyệt, sử dụng <strong>bộ chuyển đổi JavaScript CVNSS4.0 v5.0 audit-safe</strong> đi kèm dự án. Đây là demo chuyển mã, không phải chương trình C đang chạy trong trình duyệt.</p>
+  </div>
+  <div class="demo-frame">
+    <div class="demo-header"><span><span class="signal"></span> CVNSS LAB / LIVE CONVERTER</span><span class="demo-status" id="engine-status">Đang tải engine…</span></div>
+    <div class="mode-tabs" role="group" aria-label="Hướng chuyển đổi">
+      <button class="mode-button active" id="mode-decode" type="button" aria-pressed="true">ASCII → Unicode</button>
+      <button class="mode-button" id="mode-encode" type="button" aria-pressed="false">Unicode → ASCII</button>
+    </div>
+    <div class="demo-inputs">
+      <div class="demo-pane">
+        <label for="demo-input" id="input-label">INPUT / CVNSS4.0 RAW</label>
+        <textarea id="demo-input" rows="6" spellcheck="false" autocomplete="off" autocapitalize="off">toiy iwy
+tizb vidf</textarea>
+        <div class="demo-actions"><button type="button" class="small-btn" id="sample-btn">↺ Ví dụ</button><button type="button" class="small-btn" id="clear-btn">Xóa</button></div>
+      </div>
+      <div class="convert-arrow" aria-hidden="true">⇄</div>
+      <div class="demo-pane output-pane">
+        <div class="pane-title"><span id="output-label">OUTPUT / UNICODE UTF-8</span><span id="count-output">—</span></div>
+        <pre id="demo-output" aria-live="polite">tôi yêu
+tiếng việt</pre>
+        <div class="demo-actions"><button type="button" class="small-btn" id="copy-btn">⧉ Sao chép</button><button type="button" class="small-btn" id="save-btn">↓ Lưu .txt</button></div>
+      </div>
+    </div>
+    <div class="demo-footer"><span id="demo-message">Nhập nội dung để chuyển mã.</span><span id="demo-count" class="mono"></span></div>
+  </div>
+  <div class="demo-under">
+    <div><strong>Chuyển đổi có kiểm tra</strong><p>Mã hóa ngược có thể không duy nhất. Demo sẽ cảnh báo khi chuyển về raw rồi giải mã lại không khớp nội dung ban đầu.</p></div>
+    <div><strong>Không gửi nội dung lên máy chủ</strong><p>JavaScript xử lý trực tiếp trong trình duyệt; nút lưu tạo file UTF-8 trên thiết bị của bạn.</p></div>
+  </div>
+</section>
+
+<section class="section section-shaded" id="huong-dan">
+ <div class="shell">
+  <div class="section-intro">
+    <div class="kicker">04 / GET STARTED</div>
+    <h2>Từ tải về đến dòng đầu tiên.</h2>
+    <p>Chạy ứng dụng thực bằng Windows Command Prompt, hoặc biên dịch trên Linux/macOS. Trình chỉnh sửa không yêu cầu môi trường đồ họa.</p>
+  </div>
+  <div class="setup-grid">
+    <article class="setup-card">
+      <div class="setup-heading"><span class="os-icon">▦</span><div><h3>Windows 10/11</h3><p>Command Prompt · x64</p></div></div>
+      <ol><li>Mở <a href="https://github.com/xulytiengviet/Bila-ed/actions/runs/42752053185" target="_blank" rel="noopener noreferrer">GitHub Actions – bản Windows đã kiểm thử</a>, tải artifact <code>Bila-ed-Windows-CMD</code> (có thể cần đăng nhập GitHub).</li><li>Giải nén và mở CMD tại thư mục chứa <code>cved.exe</code>.</li><li>Chạy lệnh dưới đây để mở tệp đầu tiên.</li></ol>
+      <div class="code-snippet"><code>cved.exe demo.txt</code><button type="button" class="code-copy" data-copy="cved.exe demo.txt" aria-label="Sao chép lệnh Windows">COPY</button></div>
+      <p class="setup-hint">Nếu tải mã nguồn thay vì file .exe: cài GCC MinGW-w64 và chạy <code>build-windows.cmd</code>.</p>
+    </article>
+    <article class="setup-card">
+      <div class="setup-heading"><span class="os-icon">$_</span><div><h3>Linux / macOS</h3><p>GCC · make · terminal</p></div></div>
+      <ol><li>Tải repository hoặc clone về máy.</li><li>Biên dịch bằng GCC C11 qua Makefile.</li><li>Chạy bộ kiểm thử, sau đó mở trình soạn thảo.</li></ol>
+      <div class="code-snippet"><code>git clone https://github.com/xulytiengviet/Bila-ed.git<br>cd Bila-ed<br>make &amp;&amp; make test<br>./cved demo.txt</code><button type="button" class="code-copy" data-copy="git clone https://github.com/xulytiengviet/Bila-ed.git&#10;cd Bila-ed&#10;make &amp;&amp; make test&#10;./cved demo.txt" aria-label="Sao chép lệnh Linux">COPY</button></div>
+      <p class="setup-hint">Mã nguồn mở MIT, có thể xem toàn bộ C11, bảng quy tắc và kiểm thử.</p>
+    </article>
+  </div>
+
+  <div class="walkthrough">
+    <div class="walk-copy">
+      <div class="kicker">CLI / EXAMPLE SESSION</div>
+      <h3>6 bước để tạo một tệp tiếng Việt.</h3>
+      <ol class="number-steps">
+        <li><span>01</span><p><code>a</code> — bắt đầu thêm các dòng.</p></li>
+        <li><span>02</span><p>Nhập câu CVNSS4.0 dạng ASCII.</p></li>
+        <li><span>03</span><p><code>.</code> — kết thúc chế độ nhập.</p></li>
+        <li><span>04</span><p><code>,p</code> — xem nội dung raw của mọi dòng.</p></li>
+        <li><span>05</span><p><code>V</code> — kiểm tra tính hợp lệ chuyển mã.</p></li>
+        <li><span>06</span><p><code>wq</code> — ghi UTF-8 và thoát.</p></li>
+      </ol>
+    </div>
+    <div class="walk-terminal">
+      <div class="mini-title">session.log <span>ASCII DISPLAY</span></div>
+      <pre aria-label="Ví dụ phiên làm việc"><span class="comment"># Chạy: cved.exe demo.txt</span>
+<span class="prompt">&gt;</span> a
+toiy iwy
+tizb vidf
+.
+<span class="prompt">&gt;</span> ,p
+toiy iwy
+tizb vidf
+<span class="prompt">&gt;</span> V
+<span class="success">verify: 2 lines, 0 errors</span>
+<span class="prompt">&gt;</span> wq
+<span class="comment"># File demo.txt → UTF-8</span>
+<span class="success">tôi yêu
+tiếng việt</span></pre>
+    </div>
+  </div>
+  <div class="commands-wrap">
+    <div class="commands-title"><h3>Bảng lệnh thường dùng</h3><span>Không phải bản sao đầy đủ của POSIX ed</span></div>
+    <div class="commands-grid">
+      <div><code>a</code><span>Thêm dòng sau vị trí hiện tại</span></div>
+      <div><code>i</code><span>Chèn trước dòng hiện tại</span></div>
+      <div><code>c</code><span>Thay đổi dòng</span></div>
+      <div><code>d</code><span>Xóa dòng hoặc khoảng dòng</span></div>
+      <div><code>p / n</code><span>In raw / in kèm số dòng</span></div>
+      <div><code>,p</code><span>In tất cả các dòng</span></div>
+      <div><code>s/a/b/g</code><span>Thay thế trên raw</span></div>
+      <div><code>P / V</code><span>Chẩn đoán / xác minh</span></div>
+      <div><code>w / wq</code><span>Ghi file / ghi và thoát</span></div>
+      <div><code>q / q!</code><span>Thoát / thoát không lưu</span></div>
+      <div><code>r / e</code><span>Đọc thêm / mở file mới</span></div>
+      <div><code>B</code><span>Biểu diễn Base27–3 trít</span></div>
+    </div>
+    <p class="command-warning"><strong>Lưu ý:</strong> Các thao tác thường hiển thị ASCII. Chỉ lệnh giải mã rõ ràng <code>--decode</code> hoặc file đầu ra mới hiển thị Unicode; lệnh shell <code>!command</code> không được hỗ trợ vì lý do an toàn.</p>
+  </div>
+ </div>
+</section>
+
+<section class="section shell" id="ung-dung">
+ <div class="section-intro"><div class="kicker">05 / APPLICATIONS</div><h2>Nhỏ ở giao diện.<br>Rộng ở khả năng nghiên cứu.</h2><p>Bila-ed bắt đầu từ thao tác theo dòng, nhưng lõi xử lý văn bản có thể làm cơ sở cho nhiều hướng thực nghiệm.</p></div>
+ <div class="use-grid">
+  <article class="use-card"><span class="use-tag">01 / CLI</span><h3>Terminal &amp; SSH</h3><p>Soạn thảo tiếng Việt qua kết nối dòng lệnh, phiên từ xa hoặc môi trường hạn chế về font và bộ gõ.</p><span>ĐÃ HỖ TRỢ</span></article>
+  <article class="use-card"><span class="use-tag">02 / LANGUAGE</span><h3>Nghiên cứu CVNSS4.0</h3><p>So sánh các biểu diễn, kiểm tra mã mơ hồ, đối chiếu bộ luật và tập dữ liệu vàng giữa C và JavaScript.</p><span>ĐÃ HỖ TRỢ</span></article>
+  <article class="use-card"><span class="use-tag">03 / DATA</span><h3>UTF-8 &amp; dữ liệu văn bản</h3><p>Biên tập nội dung với nguyên tắc bảo toàn tệp; tách biệt lớp nhập ASCII và đầu ra Unicode chuẩn.</p><span>ĐÃ HỖ TRỢ</span></article>
+  <article class="use-card"><span class="use-tag">04 / TRIT</span><h3>Base27 / Tam phân</h3><p>Biểu diễn A–Z và dấu cách bằng ba chữ số cơ số 3; phù hợp kiểm thử ánh xạ và giao thức nghiên cứu.</p><span>THỬ NGHIỆM</span></article>
+  <article class="use-card"><span class="use-tag">05 / EMBEDDED</span><h3>ESP32-S3 / Serial</h3><p>Định hướng tách lõi C khỏi I/O để phục vụ bàn phím và console thiết bị nhúng sau khi đánh giá giới hạn RAM/flash.</p><span>LỘ TRÌNH</span></article>
+  <article class="use-card"><span class="use-tag">06 / HARDWARE</span><h3>FPGA / Edge AI</h3><p>Khảo sát biểu diễn tam phân và bộ giải mã phần cứng; chưa có minh chứng triển khai thực trên FPGA.</p><span>LỘ TRÌNH</span></article>
+ </div>
+
+ <div class="trit-box">
+  <div><div class="kicker">BASE27 / 3³ = 27</div><h3>Một ký hiệu, ba trít.</h3><p>Ví dụ tra cứu ánh xạ ký tự ASCII A–Z + dấu cách sang bộ ba chữ số cơ số 3. Đây là biểu diễn dữ liệu, <strong>không phải CPU tam phân hay lời hứa nén dữ liệu</strong>.</p></div>
+  <div class="trit-demo"><label for="trit-input">NHẬP A–Z / SPACE</label><input id="trit-input" maxlength="18" value="CVNSS" spellcheck="false" autocomplete="off"><div class="trit-output" id="trit-output" aria-live="polite"></div><small id="trit-summary">Giá trị 0–26 · mỗi ký tự = 3 trít</small></div>
+ </div>
+</section>
+
+<section class="section references-section" id="tai-lieu">
+ <div class="shell">
+  <div class="section-intro"><div class="kicker">06 / RESEARCH & SOURCE</div><h2>Mã mở. Nguồn rõ.<br>Kết quả có thể kiểm tra.</h2><p>Minh bạch về nguồn cảm hứng, tác giả CVNSS4.0, dữ liệu kiểm chứng và những giới hạn kỹ thuật.</p></div>
+  <div class="ref-grid">
+   <a href="https://www.nokia.com/bell-labs/about/dennis-m-ritchie/qed.html" target="_blank" rel="noopener noreferrer"><span>01 / HISTORY</span><strong>Dennis Ritchie — History of QED</strong><small>Bell Labs · nguồn gốc ed từ QED ↗</small></a>
+   <a href="https://www.gnu.org/software/ed/manual/ed_manual.html" target="_blank" rel="noopener noreferrer"><span>02 / EDITOR</span><strong>GNU ed manual</strong><small>Cấu trúc lệnh và tư duy theo dòng ↗</small></a>
+   <a href="https://chuvietnhanh.sourceforge.net/ChuVNSongSong.htm" target="_blank" rel="noopener noreferrer"><span>03 / CVNSS4.0</span><strong>Kiều Trường Lâm &amp; Trần Tư Bình</strong><small>Giáo trình và công thức CVNSS4.0 ↗</small></a>
+   <a href="https://chuvietnhanh.sourceforge.net/CoDuyenRaDoiCVNSS.pdf" target="_blank" rel="noopener noreferrer"><span>04 / ORIGIN</span><strong>Cơ duyên ra đời CVNSS4.0</strong><small>Tường thuật của Trần Tư Bình ↗</small></a>
+   <a href="https://github.com/xulytiengviet/Bila-ed" target="_blank" rel="noopener noreferrer"><span>05 / CODE</span><strong>Bila-ed / CVED trên GitHub</strong><small>Lõi C11, bộ luật, golden tests, CI ↗</small></a>
+   <a href="https://github.com/xulytiengviet/Bila-ed/blob/main/docs/SPEC.md" target="_blank" rel="noopener noreferrer"><span>06 / SPECIFICATION</span><strong>Đặc tả kỹ thuật Bila-ed</strong><small>Quyết định thiết kế và giới hạn ↗</small></a>
+  </div>
+  <div class="integrity"><span class="status-dot"></span><p><strong>Trạng thái v0.1.0:</strong> CI Windows/Linux đã đạt, 825 trường hợp giải mã đối chiếu golden. Điều này không chứng minh 100% độ bao phủ, tính hoàn chỉnh ngôn ngữ hay vận hành ESP32-S3/FPGA. <a href="https://github.com/xulytiengviet/Bila-ed/actions" target="_blank" rel="noopener noreferrer">Xem lịch sử CI ↗</a></p></div>
+ </div>
+</section>
+</main>
+
+<footer class="site-footer"><div class="shell footer-grid">
+ <div><a href="#top" class="footer-logo">&gt;_ BILA/ED</a><p>ASCII là giao diện. Unicode là dữ liệu cần bảo toàn.<br>CVNSS4.0 là bộ quy tắc chuyển đổi có kiểm chứng.</p></div>
+ <div><strong>PROJECT</strong><a href="https://github.com/xulytiengviet/Bila-ed" target="_blank" rel="noopener noreferrer">Source code ↗</a><a href="https://github.com/xulytiengviet/Bila-ed/actions" target="_blank" rel="noopener noreferrer">Build &amp; tests ↗</a><a href="https://github.com/xulytiengviet/Bila-ed/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License ↗</a></div>
+ <div><strong>RESEARCH</strong><a href="https://chuvietnhanh.sourceforge.net/ChuVNSongSong.htm" target="_blank" rel="noopener noreferrer">CVNSS4.0 ↗</a><a href="https://www.gnu.org/software/ed/manual/ed_manual.html" target="_blank" rel="noopener noreferrer">Unix ed ↗</a><a href="#tai-lieu">References ↑</a></div>
+</div><div class="shell footer-bottom"><span>© 2026 Long Ngo · Bila-ed / CVED · MIT</span><span>MADE FOR THE TERMINAL. BUILT FOR VIETNAMESE.</span><a href="#top">TOP ↑</a></div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
